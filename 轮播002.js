@@ -8,8 +8,27 @@ window.onload = function(){
 
 
     function offset(distances){
-        newStyle = parseInt(pic.style.left) + distances;
-        pic.style.left = newStyle +"px";
+        var newStyle = parseInt(pic.style.left) + distances;
+        var allTime = 520;
+        var frequente = 10;
+        var oneLenght = distances / (allTime / frequente);
+        function slowOffSet () {
+            if (( distances > 0 && parseInt(pic.style.left) < newStyle ) || ( distances < 0 && parseInt(pic.style.left) > newStyle )){
+                pic.style.left = parseInt(pic.style.left) + oneLenght +"px";
+                setTimeout( slowOffSet, frequente);
+            }
+            else{
+                if (parseInt(pic.style.left)  < -3120) {
+                    pic.style.left = "-520px";
+                }
+                else if (parseInt(pic.style.left)  > -520) {
+                        pic.style.left = "-3120px";
+                    
+                }
+
+            }
+        }
+        slowOffSet();
     }
 
 
@@ -24,6 +43,7 @@ window.onload = function(){
 
     }
 
+
     next.onclick = function () { 
         offset(-520);
         if (index == 6) {
@@ -34,9 +54,7 @@ window.onload = function(){
         }
         
         showButtons();  
-        if (parseInt(pic.style.left)  < -3120) {
-            pic.style.left = "-520px";
-        }
+        
         
     };
 
@@ -49,9 +67,7 @@ window.onload = function(){
             index--;
         }
         showButtons();
-        if (parseInt(pic.style.left)  > -520) {
-            pic.style.left = "-3120px";
-        }
+        
         
     }
 
@@ -65,8 +81,7 @@ window.onload = function(){
                 var clickOffSet = -520 * (newIndex - index);
                 offset(clickOffSet);
                 index = newIndex;
-                showButtons();
-             
+                showButtons(); 
             }
            
 
