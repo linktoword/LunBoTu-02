@@ -6,6 +6,7 @@ window.onload = function(){
     var prve = document.getElementById("prve");
     var index = 1;
     var offsetStatus = false;
+    var timer;
 
 
     function offset(distances){
@@ -58,10 +59,7 @@ window.onload = function(){
                 index++;
             }   
             showButtons();  
-        } 
-        
-        
-        
+        }        
     };
 
     prve.onclick = function () {
@@ -74,10 +72,7 @@ window.onload = function(){
                 index--;
             }
             showButtons();
-        }
-        
-        
-        
+        }        
     }
 
     for (var j = 0; j < buttons.length; j++ ){
@@ -92,16 +87,19 @@ window.onload = function(){
                     offset(clickOffSet);
                     index = newIndex;
                     showButtons();
-
-                }
-                 
-            }
-           
-
+                }                 
+            }           
         }
     }
-
-
-
-
+    function run() {
+         timer = setInterval( function(){
+            next.onclick();
+        }, 3000);
+    }
+    function stop() {
+        clearTimeout(timer);
+    }
+    container.onmouseover = stop;
+    container.onmouseout = run;
+    run();
 };
