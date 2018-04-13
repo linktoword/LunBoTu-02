@@ -13,12 +13,18 @@ function offset(distances){
 
 next.onclick = function () {
     offset(-520);
+    if (parseInt(pic.style.left)  < -3120) {
+        pic.style.left = "-520px";
+    }
+    
 };
  prve.onclick = function () {
-     offset(520);
+    offset(520);
+    if (parseInt(pic.style.left)  > -520) {
+        pic.style.left = "-3120px";
+    }
+     
  }
-
-
 
 
 
