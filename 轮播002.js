@@ -5,9 +5,11 @@ window.onload = function(){
     var next = document.getElementById("next");
     var prve = document.getElementById("prve");
     var index = 1;
+    var offsetStatus = false;
 
 
     function offset(distances){
+        offsetStatus = true;
         var newStyle = parseInt(pic.style.left) + distances;
         var allTime = 520;
         var frequente = 10;
@@ -18,6 +20,7 @@ window.onload = function(){
                 setTimeout( slowOffSet, frequente);
             }
             else{
+                offsetStatus = false;
                 if (parseInt(pic.style.left)  < -3120) {
                     pic.style.left = "-520px";
                 }
@@ -29,6 +32,7 @@ window.onload = function(){
             }
         }
         slowOffSet();
+        
     }
 
 
@@ -44,29 +48,34 @@ window.onload = function(){
     }
 
 
-    next.onclick = function () { 
-        offset(-520);
-        if (index == 6) {
-            index = 1;
-        }
-        else{
-            index++;
-        }
+    next.onclick = function () {
+        if (!offsetStatus) {
+            offset(-520);
+            if (index == 6) {
+                index = 1;
+            }
+            else{
+                index++;
+            }   
+            showButtons();  
+        } 
         
-        showButtons();  
         
         
     };
 
     prve.onclick = function () {
-        offset(520);
-        if (index == 1) {
-            index = 6;
+        if (!offsetStatus) {
+            offset(520);
+            if (index == 1) {
+                index = 6;
+            }
+            else{
+                index--;
+            }
+            showButtons();
         }
-        else{
-            index--;
-        }
-        showButtons();
+        
         
         
     }
@@ -78,10 +87,14 @@ window.onload = function(){
                 return;
             }
             else{
-                var clickOffSet = -520 * (newIndex - index);
-                offset(clickOffSet);
-                index = newIndex;
-                showButtons(); 
+                if(!offsetStatus){
+                    var clickOffSet = -520 * (newIndex - index);
+                    offset(clickOffSet);
+                    index = newIndex;
+                    showButtons();
+
+                }
+                 
             }
            
 
